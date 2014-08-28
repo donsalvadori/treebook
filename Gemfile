@@ -12,7 +12,7 @@ gem 'devise'
 gem 'simple_form'
 #move sqllite3 to dev and test environment
 group :development, :test do 
-	gem 'sqllite3'
+	gem 'sqlite3'
 end
 
 group :production do
