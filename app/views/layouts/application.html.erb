@@ -12,13 +12,13 @@
       	<ul class='nav'>
 			<li><%= link_to "All Statuses", feed_path %> </li>
 		</ul>
-    <ul class='nav pull-right'> 
+    <ul class='navbar pull-right'> 
       <% if user_signed_in? %>
         <li> <%= link_to current_user.full_name, edit_user_registration_path %> </li>
         <li><%= link_to "Log Out", logout_path %> </li> 
       <% else %>
-        <li> <%= link_to "Register", register_path %> </li>  
-        <li> <%= link_to "Log in", login_path %> </li>  
+        <li class='register'> <%= link_to "Register", register_path %> </li>  
+        <li class= 'login'> <%= link_to "Log in", login_path %> </li>  
       <% end %>
     </ul>
     </div>
