@@ -35,3 +35,7 @@ body {
 .register {
 	display:inline;
 }
+
+ul { list-style-type: none; }
+
+li { display: inline; }

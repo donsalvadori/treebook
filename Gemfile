@@ -11,13 +11,17 @@ gem 'devise'
 
 gem 'simple_form'
 #move sqllite3 to dev and test environment
+
 group :development, :test do 
 	gem 'sqlite3'
 end
 
 group :production do
 	gem 'pg'
+	gem 'rails_12factor'
 end
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -50,3 +54,6 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+
+ruby "2.1.2"
