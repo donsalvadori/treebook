@@ -17,3 +17,9 @@ Carl:
 	last_name: 'Grompe'
 	email: 'gewian@gmail.com'
 	profile_name: 'gewian2'
+
+mike:
+	first_name: "Mike"
+	last_name: 'the Frog'
+	email: 'ribbit@gmail.com'
+	profile_name: 'mrtoad'

@@ -11,6 +11,10 @@ gem 'devise'
 
 gem 'simple_form'
 
+group :test do
+	gem 'shoulda'
+end
+
 
 group :development, :test do 
 	gem 'sqlite3'
