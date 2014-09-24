@@ -1,6 +1,7 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_filter :set_status, only: [:update]
   # GET /statuses
   # GET /statuses.json
   def index
@@ -40,7 +41,7 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1
   # PATCH/PUT /statuses/1.json
   def update
-    @status = current_user.statuses.find(params[:id])
+    @status.update(status_params)
     if params[:status] && params[:status].has_key?(:user_id)
        params[:status].delete(:user_id) 
     end
@@ -67,12 +68,11 @@ class StatusesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    
     def set_status
-      @status = Status.find(params[:id])
+        @status = current_user.statuses.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
       params.require(:status).permit(:user_id, :content) 
     end
