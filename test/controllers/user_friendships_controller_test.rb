@@ -18,6 +18,32 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 				get :new
 				assert_response :sucecess
 			end
+
+			should "should set a flash error if the friend_id params is missing" do
+				get :new, {}
+				assert_equal "Friend required", flash[:error]
+			end
+
+			should "display the friend's name" do
+				get :new, friend_id: users(:chris).id
+				assert_match /#{users(:chris).full_name}/, response.body
+			end
+
+			should "assign a new user friendship" do
+				get :new, friend_id: users(:chris).id
+				assert assigns(:user_friendship)
+			end
+
+
+			should "assign a new user friendship to the correct friend" do
+				get :new, friend_id: users(:chris).id
+				assert_equal users(:chris), assigns(:user_friendship).friend
+			end
+
+			should "assign a new user friendship to the currently logged in user" do
+				get :new, friend_id: users(:chris).id
+				assert_equal users(:chris), assigns(:user_friendship).user
+			end
 		end
 	end
 end
