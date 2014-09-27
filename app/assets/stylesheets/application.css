@@ -23,14 +23,10 @@ body {
 }
 
 
-.nav {
+.navbar {
 	margin-top: 50px;
 }
 
-.navbar.pull-right{
-	margin-top: -50px;
-	margin-right: 50px;
-}
 
 .register {
 	display:inline;
