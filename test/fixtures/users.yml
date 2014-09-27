@@ -10,6 +10,7 @@ chris:
 	last_name: 'Salvi'
 	email: 'csalvi42@gmail.com'
 	profile_name: 'donsalvadori'
+	encrypted_password: $2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq
 	
 
 Carl:
