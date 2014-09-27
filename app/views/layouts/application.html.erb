@@ -7,23 +7,27 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav class="navbar navbar-inverse" role="navigation">
-      <a class="navbar-brand" href="#">LEXPO</a>
-      	<ul class='nav'>
-			<li><%= link_to "All Statuses", feed_path %> </li>
-		</ul>
-    <ul class='navbar pull-right'> 
-      <% if user_signed_in? %>
-        <li> <%= link_to current_user.full_name, edit_user_registration_path %> </li>
-        <li><%= link_to "Log Out", logout_path %> </li> 
-      <% else %>
-        <li class='register'> <%= link_to "Register", register_path %> </li>  
-        <li class= 'login'> <%= link_to "Log in", login_path %> </li>  
-      <% end %>
-    </ul>
+  <div class="container">
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">LEXPO</a>
+      </div>
+      <nav class="collapse navbar-collapse">
+        <ul class='nav navbar-nav'>
+    			<li><%= link_to "All Statuses", feed_path %> </li>
+    		</ul>
+        <ul class='nav navbar-nav pull-right'>
+          <% if user_signed_in? %>
+            <li> <%= link_to current_user.full_name, edit_user_registration_path %> </li>
+            <li><%= link_to "Log Out", logout_path %> </li>
+          <% else %>
+            <li class='register'> <%= link_to "Register", register_path %> </li>
+            <li class= 'login'> <%= link_to "Log in", login_path %> </li>
+          <% end %>
+        </ul>
+      </nav>
     </div>
-</div>
-</nav>
+  </div>
 
 	<div class='container'>
     <% flash.each do |type, message| %>
@@ -32,8 +36,8 @@
             <%= message%>
         </div>
     <% end %>
-	  
-      
+
+
 		<%= yield %>
 	</div>
 </body>

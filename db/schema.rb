@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20140921115322) do
     t.datetime "updated_at"
   end
 
+  add_index "user_friendships", ["user_id", "friend_id"], name: "index_user_friendships_on_user_id_and_friend_id"
+
   create_table "users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
