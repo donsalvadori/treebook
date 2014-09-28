@@ -87,7 +87,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 
 		context "with a valid friend_id" do
 			setup do
-				post :create, friend_id: users(:mike)
+				post :create, user_friendship:{ friend_id: users(:mike) }
 			end
 
 			should "assign a friend object" do
