@@ -36,4 +36,21 @@ class UserFriendshipTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context "#accept!" do
+    setup do
+      @user_friendship = UserFriendship.create user: users(:chris), friend: users(:mike)
+    end
+
+    should "set the state to accepted" do
+      @user_friendship.accept!
+      assert_equal "accepted", @user_friendship.state
+    end
+
+    should "send an acceptance email" do
+      assert_difference "ActionMailer::Base.deliveries.size" 1 do
+        @user_friendship.accept!
+      end
+    end
+  end
 end
