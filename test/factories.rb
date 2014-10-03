@@ -21,5 +21,8 @@ FactoryGirl.define do
 			state 'requested'
 		end
 
+		factory :accepted_user_friendship do
+			state 'accepted'
+		end
 	end
 end
