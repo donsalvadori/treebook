@@ -18,6 +18,19 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 				sign_in users(:chris)
 				get :index
 			end
+
+			should "get the index page without error" do
+				assert_response :success
+			end
+
+			should "assign user_friendships"
+				assert assigns(:user_friendships)
+			end
+
+			should "display friends names" do
+				assert_match /Pending/, response.body
+				assert_match /Active/, response.body
+			end
 		end
 	end
 
