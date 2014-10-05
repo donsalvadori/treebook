@@ -185,6 +185,43 @@ end
 				assert assigns(:user_friendship)
 				assert_equal @user_friendship, assigns(:user_friendship)
 			end
+
+			should "update the state to accepted" do
+				assert_equal 'accepted', @user_friendship.state
+			end
+
+			should "have a flash success message"
+				assert_equal "You are now friends with #{@user_friendship.friend.first_name}", flash[:success]
+			end
+		end
+	end
+
+	context "#edit" do
+		context "when not logged in" do
+			should "redirect to the login page" do
+				get :edit, id: 1
+				assert_response :redirect
+			end	
+		end
+
+		context "when logged in" do
+			setup do
+				@user_friendship = create(:pending_user_friendship, user: users(:chris))
+				sign_in users(:chris)
+				get :edit, id: @user_friendship
+			end
+
+			should "get edit and return success" do
+				assert_response :sucecess
+			end
+
+			should "assign to user_friendship" do
+				asser assign(:user_friendship)
+			end
+
+			should "assign to user_friendship" do
+				asser assign(:friend)
+			end
 		end
 	end
 end
