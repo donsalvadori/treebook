@@ -5,6 +5,11 @@ class UserFriendshipsController < ApplicationController
 		@user_friendship = current_user.user_friendships.all
 	end
 
+	def accept
+		@user_friendship - current_user.user_friendships.find(params[:id])
+		redirect_to user_friendships_path
+	end
+
 	def new
 		if params[:friend_id]
 			@friend = User.where(profile_name: params[:friend_id]).first

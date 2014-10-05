@@ -167,9 +167,23 @@ end
 	context "#accept" do
 		context "when not logged in " do
 			should "redirect to the login page" do
-				put :new
+				put :accept, id: 1
 				assert_response :redirect
 				assert_redirected_to login_path
+			end
+		end
+
+		context "when logged in" do
+			setup do
+				@user_friendship = create (:pending_user_friendship, user: users(:chris))
+				sign_in users(:chris)
+				put :accept, id: @user_friendship
+				@user_friendship.reload 
+			end
+
+			should "assign a user_friendship" do
+				assert assigns(:user_friendship)
+				assert_equal @user_friendship, assigns(:user_friendship)
 			end
 		end
 	end
