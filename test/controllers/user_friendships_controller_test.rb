@@ -31,6 +31,19 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 				assert_match /Pending/, response.body
 				assert_match /Active/, response.body
 			end
+
+			should "display pending information on a pending friendship" do
+				assert_select "user_friendship_#{@friendship1.id}" do
+					assert_select "em", "Friendship is pending"
+				end
+			end
+
+			should "display date information on an accepted friendship" do
+				assert_select "#user_friendship_#{@friendship2.id}" do
+					assert_select "em", "Friendship started #{@friendship2.updated_at}."
+				end
+			end
+
 		end
 	end
 
@@ -149,4 +162,15 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 			end
 		end
     end
+end
+
+	context "#accept" do
+		context "when not logged in " do
+			should "redirect to the login page" do
+				put :new
+				assert_response :redirect
+				assert_redirected_to login_path
+			end
+		end
+	end
 end
