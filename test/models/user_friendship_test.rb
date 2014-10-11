@@ -37,6 +37,9 @@ class UserFriendshipTest < ActiveSupport::TestCase
     end
   end
 
+
+
+
   context "#accept!" do
     setup do
       @user_friendship = UserFriendship.create user: users(:chris), friend: users(:mike)
