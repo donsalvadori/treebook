@@ -106,4 +106,31 @@ end
         UserFriendship.request(users(:chris),users(:mike))
     end
   end
+
+  context "#delete_mutual_friendship!" do
+    setup do
+      UserFriendship.request users(:chris), users(:carl)
+      @friendship1 = user(:chris).user_friendship.where(friend_id: users(:carl).id).first
+      @friendship2 = user(:carl).user_friendship.where(friend_id: users(:chris).id).first
+    end
+
+    should "delete the mutual friendship" do
+      assert_equal @friendship2, @friendship1.mutual_friendship
+      @friendship1.delete_mutual_friendship!
+      assert !UserFriendship.exists?(@friendship2.id)
+    end
+  end
+
+  context "on destroy" do
+    setup do
+      UserFriendship.request users(:chris), users(:carl)
+      @friendship1 = user(:chris).user_friendship.where(friend_id: users(:carl).id).first
+      @friendship2 = user(:carl).user_friendship.where(friend_id: users(:chris).id).first
+    end
+
+    should "delete the mutual friendship" do
+      @friendship1.destroy
+      assert !UserFriendship.exists?(@friendship2.id)
+    end
+  end
 end

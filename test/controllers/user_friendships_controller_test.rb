@@ -232,4 +232,23 @@ end
 			end
 		end
 	end
+
+	context "#destroy" do
+		context "when not logged in" do
+			should "redirect to the login page" do
+				delete :destroy, id: 1
+				assert_response :redirect
+				assert_redirected_to login_path
+			end
+		end
+
+		context "when logged in" do
+			setup do
+				@friend - create(:user)
+				UserFriendship.request users(:chris), @friend
+				
+				sign_in users(:chris)
+				delete :destroy, id: @user_friendship
+				@user_friendship.reload
+			end
 end

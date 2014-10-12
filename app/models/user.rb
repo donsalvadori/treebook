@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
 
          has_many :statuses
          has_many :user_friendships
-         has_many :friends, through: :user_friendships,
-                                    conditions: { user_friendship: { state: 'accepted' } }
+         has_many :friends, -> { where(user_friendships: { state: "accepted"}) }, through: :user_friendships
 
 
          has_many :pending_user_friendships, class_name: "userFriendship",
@@ -42,5 +41,4 @@ class User < ActiveRecord::Base
 
             "http://gravatar.com/avatar/#{hash}"
          end
-
 end
