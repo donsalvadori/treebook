@@ -11,6 +11,7 @@ gem 'devise'
 
 gem 'simple_form'
 gem 'state_machine'
+gem 'draper'
 
 group :test do
 	gem 'shoulda'
