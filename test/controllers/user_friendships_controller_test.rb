@@ -253,9 +253,15 @@ end
 				sign_in users(:chris)
 			end
 
-			should "delete user frinedshis" do
-				assert_difference 'UserFriendship.count', -2 do
+			should "delete user frinedships" do
+				assert_difference 'UserFriendship.count', 2 do
 					delete :destroy, id: @user_friendship
+				end
+			end
+
+			should "set the flash" do
+				delete :destroy, id: @user_friendship
+				assert_equal "Friendship destroyed", flash[:success]
 				end
 			end
 		end
