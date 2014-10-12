@@ -183,7 +183,9 @@ end
 
 		context "when logged in" do
 			setup do
-				@user_friendship = create (:pending_user_friendship, user: users(:chris))
+				@friend = create(:user)
+				@user_friendship = create (:pending_user_friendship, user: users(:chris), friend: @friend)
+				create(:pending_user_friendship, friend: users(:chris), user: @friend)
 				sign_in users(:chris)
 				put :accept, id: @user_friendship
 				@user_friendship.reload 
@@ -244,11 +246,20 @@ end
 
 		context "when logged in" do
 			setup do
-				@friend - create(:user)
-				UserFriendship.request users(:chris), @friend
+				@friend = create(:user)
+				@user_friendship = create(:accepted_user_friendship, friend: @friend, user: users(:chris))
+				create(:accepted_user_friendship, friend: users(:chris), user: @friend)
 				
 				sign_in users(:chris)
-				delete :destroy, id: @user_friendship
-				@user_friendship.reload
 			end
+
+			should "delete user frinedshis" do
+				assert_difference 'UserFriendship.count', -2 do
+					delete :destroy, id: @user_friendship
+				end
+			end
+		end
+	end
+
+
 end
