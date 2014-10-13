@@ -37,32 +37,32 @@ class UserFriendshipTest < ActiveSupport::TestCase
     end
   end
 
-context "#mutual_friendship" do
-  setup do
-      UserFriendship.request users(:chris), users (:carl)
-      @friendship1 = user(:chris).user_friendship.where(friend_id: users(:carl).id).first
-      @friendship2 = user(:carl).user_friendship.where(friend_id: users(:chris).id).first
+  context "#mutual_friendship" do
+    setup do
+        UserFriendship.request users(:chris), users(:carl)
+        @friendship1 = user(:chris).user_friendship.where(friend_id: users(:carl).id).first
+        @friendship2 = user(:carl).user_friendship.where(friend_id: users(:chris).id).first
+    end
+
+    should "correctly find the mutual friendship" do
+      assert_equal @friendship2, @friendship1.mutual_friendship
+    end
   end
 
-  should "correctly find the mutual friendship"
-    assert_equal @friendship2, @friendship1.mutual_friendship 
-  end
-end
+  context "#accept_mutual_friendship!" do
+    setup do
+      UserFriendship.request users(:chris), users(:carl)
+    end
 
-context "#accept_mutual_friendship!" do
-  setup do
-    UserFriendship.request users(:chris), users (:carl)
-  end
+    should "accept the mutual friendship" do
+      friendship1 = user(:chris).user_friendship.where(friend_id: users(:carl).id).first
+      friendship2 = user(:carl).user_friendship.where(friend_id: users(:chris).id).first
 
-  should "accept the mutual friendship"
-    friendship1 = user(:chris).user_friendship.where(friend_id: users(:carl).id).first
-    friendship2 = user(:carl).user_friendship.where(friend_id: users(:chris).id).first
-
-    friendship1.accept_mutual_friendship!
-    friendship2.reload
-    assert_equal 'accepted', friendship2.state
+      friendship1.accept_mutual_friendship!
+      friendship2.reload
+      assert_equal 'accepted', friendship2.state
+    end
   end
-end
 
 
   context "#accept!" do
@@ -76,7 +76,7 @@ end
     end
 
     should "send an acceptance email" do
-      assert_difference "ActionMailer::Base.deliveries.size" 1 do
+      assert_difference "ActionMailer::Base.deliveries.size", 1 do
         @user_friendship.accept!
       end
     end
@@ -97,13 +97,14 @@ end
   context ".request" do
     should "create two user friendships" do
       assert_difference 'UserFriendship.count', 2 do
-        UserFriendship.request(users(:chris),users(:mike))  
+        UserFriendship.request(users(:chris),users(:mike))
       end
     end
 
     should "send a friend request email" do
-       assert_difference 'ActionMailer::Base.deliveries.size', 1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         UserFriendship.request(users(:chris),users(:mike))
+      end
     end
   end
 

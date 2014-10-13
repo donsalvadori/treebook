@@ -6,21 +6,21 @@
 #
 
 chris:
-	first_name: 'Chris'
-	last_name: 'Salvi'
-	email: 'csalvi42@gmail.com'
-	profile_name: 'donsalvadori'
-	encrypted_password: $2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq
-	
+  first_name: 'Chris'
+  last_name: 'Salvi'
+  email: 'csalvi42@gmail.com'
+  profile_name: 'donsalvadori'
+  encrypted_password: $2a$10$Fh/Hm8RxDsuPTeBUr6864.GARlcmt7zF2WspaXGr3BIv2C27N.osq
+
 
 Carl:
-	first_name: "Carl"
-	last_name: 'Grompe'
-	email: 'gewian@gmail.com'
-	profile_name: 'gewian2'
+  first_name: "Carl"
+  last_name: 'Grompe'
+  email: 'gewian@gmail.com'
+  profile_name: 'gewian2'
 
 mike:
-	first_name: "Mike"
-	last_name: 'the Frog'
-	email: 'ribbit@gmail.com'
-	profile_name: 'mrtoad'
+  first_name: "Mike"
+  last_name: 'the Frog'
+  email: 'ribbit@gmail.com'
+  profile_name: 'mrtoad'

@@ -2,7 +2,8 @@ class UserFriendship < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :friend, class_name: 'User', foreign_key: 'friend_id'
 
-	attr_accessible :user, :friend, :user_id, :friend_id, :state
+	# Disabling, this is now done using strong_params in controllers.
+	# attr_accessible :user, :friend, :user_id, :friend_id, :state
 
 	after_destroy :delete_mutual_friendship!
 
@@ -14,7 +15,7 @@ class UserFriendship < ActiveRecord::Base
 		event  :accept do
 			transition any=> :accepted
 		end
-	end 
+	end
 
 	def self.request(user1, user2)
 		transition do

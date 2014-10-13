@@ -1,12 +1,12 @@
 class UserFriendshipsController < ApplicationController
 	before_filter :authenticate_user!
-	
+
 	def index
 		@user_friendship = current_user.user_friendships.all
 	end
 
 	def accept
-		@user_friendship - current_user.user_friendships.find(params[:id])
+		@user_friendship = current_user.user_friendships.find(params[:id])
 		if @user_friendship.accept!
 			flash[:succes] = "You are now friends with #{@user_friendship.friend.first_name}"
 		else
@@ -27,7 +27,7 @@ class UserFriendshipsController < ApplicationController
 		render file: 'public/404', status: :not_found
 	end
 
-	def create 
+	def create
 		if params [:user_friendship] && params[:user_friendship].has_key?(:friend_id)
 			@friend = User.where(profile_name: params[:user_friendship][:friend_id]).first
 			@user_friendship = UserFriendship.request(current_user, @friend)
@@ -48,10 +48,11 @@ class UserFriendshipsController < ApplicationController
 		@friend = @user_friendship.friend
 	end
 
-	def destroy 
+	def destroy
 		@user_friendship = current_user.user_friendships.find(param[:id])
 		if @user_friendship.destroy
 			flash[:success] ="Friendship destroyed"
+		end
 		redirect_to user_friendship_path
 	end
 end

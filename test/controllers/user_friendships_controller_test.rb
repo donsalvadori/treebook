@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class UserFriendshipsControllerTest < ActionController::TestCase
-	
+
 	context "#index" do
 		context "when not logged in" do
 			should "redirect to the login page" do
 				get :index
 				assert_response :redirect
-			end	
+			end
 		end
 
 		context "when logged in" do
@@ -23,7 +23,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 				assert_response :success
 			end
 
-			should "assign user_friendships"
+			should "assign user_friendships" do
 				assert assigns(:user_friendships)
 			end
 
@@ -43,7 +43,6 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 					assert_select "em", "Friendship started #{@friendship2.updated_at}."
 				end
 			end
-
 		end
 	end
 
@@ -52,7 +51,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 			should "redirect to the login page" do
 				get :new
 				assert_response :redirect
-			end	
+			end
 		end
 
 		context "when logged in" do
@@ -146,7 +145,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 
 			should "assign a friend object" do
 				assert assign(:friend)
-				assert_equal users(:mike), assigns (:friend)
+				assert_equal users(:mike), assigns(:friend)
 			end
 
 			should "assign a user friendship object" do
@@ -169,8 +168,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 				assert_equal "Friend request sent.", flash[:success]
 			end
 		end
-    end
-end
+  end
 
 	context "#accept" do
 		context "when not logged in " do
@@ -184,11 +182,11 @@ end
 		context "when logged in" do
 			setup do
 				@friend = create(:user)
-				@user_friendship = create (:pending_user_friendship, user: users(:chris), friend: @friend)
+				@user_friendship = create(:pending_user_friendship, user: users(:chris), friend: @friend)
 				create(:pending_user_friendship, friend: users(:chris), user: @friend)
 				sign_in users(:chris)
 				put :accept, id: @user_friendship
-				@user_friendship.reload 
+				@user_friendship.reload
 			end
 
 			should "assign a user_friendship" do
@@ -200,7 +198,7 @@ end
 				assert_equal 'accepted', @user_friendship.state
 			end
 
-			should "have a flash success message"
+			should "have a flash success message" do
 				assert_equal "You are now friends with #{@user_friendship.friend.first_name}", flash[:success]
 			end
 		end
@@ -211,7 +209,7 @@ end
 			should "redirect to the login page" do
 				get :edit, id: 1
 				assert_response :redirect
-			end	
+			end
 		end
 
 		context "when logged in" do
@@ -249,7 +247,7 @@ end
 				@friend = create(:user)
 				@user_friendship = create(:accepted_user_friendship, friend: @friend, user: users(:chris))
 				create(:accepted_user_friendship, friend: users(:chris), user: @friend)
-				
+
 				sign_in users(:chris)
 			end
 
