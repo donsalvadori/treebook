@@ -1,7 +1,7 @@
 class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
-  
+
   # GET /statuses
   # GET /statuses.json
   def index
@@ -43,7 +43,7 @@ class StatusesController < ApplicationController
   def update
     @status.update(status_params)
     if params[:status] && params[:status].has_key?(:user_id)
-       params[:status].delete(:user_id) 
+       params[:status].delete(:user_id)
     end
 
     respond_to do |format|
@@ -68,12 +68,12 @@ class StatusesController < ApplicationController
   end
 
   private
-    
+
     def set_status
-        @status = current_user.statuses.find(params[:id])
+      @status = current_user.statuses.find(params[:id])
     end
 
     def status_params
-      params.require(:status).permit(:user_id, :content) 
+      params.require(:status).permit(:user_id, :content)
     end
 end
